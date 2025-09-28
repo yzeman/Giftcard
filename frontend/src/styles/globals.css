@@ -2,7 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* 🌌 Base styles */
 body {
+  @apply bg-gradient-to-br from-gray-900 via-black to-gray-950 text-white min-h-screen;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -11,6 +13,32 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* 🪟 Glassmorphism utility */
+.glass {
+  @apply bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl rounded-3xl;
+}
+
+/* ✨ Gradient text utility */
+.gradient-text {
+  @apply bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent;
+}
+
+/* 💡 Glow animations */
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.1); }
+}
+
+.glow {
+  animation: pulseGlow 6s ease-in-out infinite;
+}
+
+/* 🔲 Box-sizing reset */
 * {
   box-sizing: border-box;
+}
+
+/* 🚀 Smooth transitions for all interactive elements */
+button, a, input {
+  @apply transition-all duration-300 ease-out;
 }
