@@ -1,6 +1,6 @@
 # Environment variables
 .env
-config.js  # ADD THIS LINE
+config.js
 .env.local
 .env.production
 
