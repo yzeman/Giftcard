@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -6,6 +8,8 @@ const Login = () => {
     password: '',
     rememberMe: false
   });
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -15,162 +19,288 @@ const Login = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Login data:', formData);
+    setIsLoading(true);
+    
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    
+    // Success animation and redirect
+    setIsLoading(false);
+    navigate('/dashboard'); // Redirect to dashboard
+  };
+
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  const buttonVariants = {
+    initial: { scale: 1 },
+    hover: { 
+      scale: 1.02,
+      transition: { duration: 0.2 }
+    },
+    tap: { scale: 0.98 }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 py-12 px-4 sm:px-6 lg:px-8">
-      {/* Background Animation */}
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-purple-900 to-black relative overflow-hidden p-4">
+      
+      {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -inset-10 opacity-20">
-          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-white rounded-full mix-blend-soft-light filter blur-xl animate-pulse"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-cyan-300 rounded-full mix-blend-soft-light filter blur-xl animate-pulse" style={{animationDelay: '2000ms'}}></div>
-        </div>
+        <motion.div 
+          className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full mix-blend-soft-light filter blur-3xl"
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.3, 0.5, 0.3],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+        <motion.div 
+          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full mix-blend-soft-light filter blur-3xl"
+          animate={{
+            scale: [1.2, 1, 1.2],
+            opacity: [0.4, 0.2, 0.4],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
       </div>
 
-      <div className="max-w-md w-full bg-white/95 backdrop-blur-lg rounded-2xl shadow-2xl p-8 relative z-10 border border-white/20">
-        {/* Logo/Brand */}
-        <div className="text-center mb-8">
-          <div className="mx-auto w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg mb-4">
-            <span className="text-white font-bold text-xl">GP</span>
-          </div>
-          <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            Welcome Back
-          </h2>
-          <p className="text-gray-600 mt-2">
-            Sign in to your GiftCardPro account
-          </p>
-        </div>
-
-        {/* Login Form */}
-        <form className="space-y-6" onSubmit={handleSubmit}>
-          {/* Username/Email Field */}
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
-              Username or Email
-            </label>
-            <div className="relative">
-              <input
-                type="text"
-                name="username"
-                value={formData.username}
-                onChange={handleChange}
-                placeholder="Enter your username or email"
-                className="w-full px-4 py-3 pl-11 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 bg-gray-50/50"
-                required
-              />
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
-              </div>
-            </div>
-          </div>
-
-          {/* Password Field */}
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
-              Password
-            </label>
-            <div className="relative">
-              <input
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                placeholder="Enter your password"
-                className="w-full px-4 py-3 pl-11 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 bg-gray-50/50"
-                required
-              />
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                </svg>
-              </div>
-            </div>
-          </div>
-
-          {/* Remember Me & Forgot Password */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <input
-                type="checkbox"
-                name="rememberMe"
-                checked={formData.rememberMe}
-                onChange={handleChange}
-                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-              />
-              <label className="ml-2 block text-sm text-gray-700 font-medium">
-                Remember me
-              </label>
-            </div>
-
-            <a 
-              href="/forgot-password" 
-              className="text-sm font-semibold text-blue-600 hover:text-blue-500 transition duration-200"
+      {/* Main Login Card */}
+      <motion.div
+        className="relative z-10 w-full max-w-md"
+        initial="hidden"
+        animate="visible"
+        variants={containerVariants}
+      >
+        <motion.div
+          className="glass p-10 rounded-3xl shadow-2xl border border-white/10"
+          variants={itemVariants}
+        >
+          
+          {/* Brand Logo */}
+          <motion.div
+            className="text-center mb-8"
+            variants={itemVariants}
+          >
+            <motion.div
+              className="mx-auto w-20 h-20 bg-gradient-to-br from-purple-500 to-blue-500 rounded-2xl flex items-center justify-center shadow-2xl mb-6"
+              whileHover={{ scale: 1.05, rotate: 2 }}
+              transition={{ type: "spring", stiffness: 300 }}
             >
-              Forgot password?
-            </a>
-          </div>
+              <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+              </svg>
+            </motion.div>
+            
+            <motion.h1 
+              className="gradient-text text-4xl font-extrabold mb-3"
+              variants={itemVariants}
+            >
+              Welcome Back
+            </motion.h1>
+            <motion.p 
+              className="text-gray-300 text-lg"
+              variants={itemVariants}
+            >
+              Sign in to your GiftCardPro account
+            </motion.p>
+          </motion.div>
 
-          {/* Sign In Button */}
-          <button
-            type="submit"
-            className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-4 rounded-xl font-semibold hover:from-blue-700 hover:to-purple-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 transform hover:-translate-y-0.5 hover:shadow-lg shadow-md"
+          {/* Login Form */}
+          <motion.form 
+            className="space-y-6"
+            onSubmit={handleSubmit}
+            variants={containerVariants}
           >
-            Sign In
-          </button>
-        </form>
+            {/* Username Field */}
+            <motion.div variants={itemVariants}>
+              <label className="block text-sm font-semibold text-gray-200 mb-3">
+                Username or Email
+              </label>
+              <div className="relative">
+                <input
+                  type="text"
+                  name="username"
+                  value={formData.username}
+                  onChange={handleChange}
+                  placeholder="Enter your username or email"
+                  className="w-full px-4 py-4 pl-12 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
+                  required
+                  disabled={isLoading}
+                />
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                  <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                </div>
+              </div>
+            </motion.div>
 
-        {/* Divider */}
-        <div className="mt-8">
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-300"></div>
-            </div>
-            <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-white text-gray-500">New to our platform?</span>
-            </div>
-          </div>
-        </div>
+            {/* Password Field */}
+            <motion.div variants={itemVariants}>
+              <label className="block text-sm font-semibold text-gray-200 mb-3">
+                Password
+              </label>
+              <div className="relative">
+                <input
+                  type="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  placeholder="Enter your password"
+                  className="w-full px-4 py-4 pl-12 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
+                  required
+                  disabled={isLoading}
+                />
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                  <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                  </svg>
+                </div>
+              </div>
+            </motion.div>
 
-        {/* Sign Up Link */}
-        <div className="text-center mt-6">
-          <a 
-            href="/register" 
-            className="inline-flex items-center font-semibold text-blue-600 hover:text-blue-500 transition duration-200 group"
+            {/* Remember & Forgot */}
+            <motion.div 
+              className="flex items-center justify-between"
+              variants={itemVariants}
+            >
+              <label className="flex items-center space-x-3 cursor-pointer">
+                <div className="relative">
+                  <input
+                    type="checkbox"
+                    name="rememberMe"
+                    checked={formData.rememberMe}
+                    onChange={handleChange}
+                    className="sr-only"
+                    disabled={isLoading}
+                  />
+                  <div className={`w-5 h-5 rounded border-2 transition-all duration-200 ${
+                    formData.rememberMe 
+                      ? 'bg-purple-500 border-purple-500' 
+                      : 'bg-white/5 border-white/20'
+                  }`}>
+                    {formData.rememberMe && (
+                      <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    )}
+                  </div>
+                </div>
+                <span className="text-gray-300 font-medium">Remember me</span>
+              </label>
+              
+              <motion.a 
+                href="/forgot-password"
+                className="text-purple-400 hover:text-purple-300 font-medium text-sm transition-colors duration-200"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Forgot password?
+              </motion.a>
+            </motion.div>
+
+            {/* Sign In Button */}
+            <motion.button
+              type="submit"
+              className="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 text-white font-bold text-lg shadow-2xl relative overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
+              variants={buttonVariants}
+              whileHover="hover"
+              whileTap="tap"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <motion.div
+                  className="flex items-center justify-center"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                >
+                  <motion.div
+                    className="w-6 h-6 border-2 border-white border-t-transparent rounded-full mr-2"
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                  />
+                  Signing In...
+                </motion.div>
+              ) : (
+                <motion.span
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                >
+                  Sign In
+                </motion.span>
+              )}
+            </motion.button>
+          </motion.form>
+
+          {/* Sign Up Link */}
+          <motion.div 
+            className="text-center mt-8 pt-6 border-t border-white/10"
+            variants={itemVariants}
           >
-            Create your account
-            <svg className="ml-1 w-4 h-4 transform group-hover:translate-x-1 transition duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </a>
-        </div>
+            <p className="text-gray-400">
+              New to GiftCardPro?{' '}
+              <motion.a
+                href="/register"
+                className="gradient-text font-bold hover:underline"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Create your account
+              </motion.a>
+            </p>
+          </motion.div>
 
-        {/* Security Features */}
-        <div className="mt-8 grid grid-cols-3 gap-4 text-center text-xs text-gray-500">
-          <div className="flex flex-col items-center">
-            <svg className="w-5 h-5 text-green-500 mb-1" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-            </svg>
-            Secure
-          </div>
-          <div className="flex flex-col items-center">
-            <svg className="w-5 h-5 text-blue-500 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
-            Fast
-          </div>
-          <div className="flex flex-col items-center">
-            <svg className="w-5 h-5 text-purple-500 mb-1" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-            </svg>
-            Reliable
-          </div>
-        </div>
-      </div>
+          {/* Security Badges */}
+          <motion.div 
+            className="grid grid-cols-3 gap-4 mt-8 text-center text-xs text-gray-400"
+            variants={itemVariants}
+          >
+            {['Secure', 'Fast', 'Reliable'].map((item, index) => (
+              <motion.div
+                key={item}
+                className="flex flex-col items-center"
+                whileHover={{ scale: 1.05 }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <div className="w-8 h-8 bg-white/5 rounded-lg flex items-center justify-center mb-1">
+                  <div className="w-2 h-2 bg-green-400 rounded-full" />
+                </div>
+                {item}
+              </motion.div>
+            ))}
+          </motion.div>
+        </motion.div>
+      </motion.div>
     </div>
   );
 };
