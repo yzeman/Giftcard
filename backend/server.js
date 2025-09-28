@@ -1,8 +1,8 @@
+const config = require('./config');
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
-require('dotenv').config();
 
 const app = express();
 
@@ -11,8 +11,8 @@ app.use(cors());
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Database connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/giftcard_marketplace', {
+// Database connection - USING CONFIG INSTEAD OF process.env
+mongoose.connect(config.MONGODB_URI || 'mongodb://localhost:27017/giftcard_marketplace', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -29,7 +29,8 @@ app.use((error, req, res, next) => {
   res.status(500).json({ message: 'Something went wrong!' });
 });
 
-const PORT = process.env.PORT || 5000;
+// USING CONFIG INSTEAD OF process.env
+const PORT = config.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
