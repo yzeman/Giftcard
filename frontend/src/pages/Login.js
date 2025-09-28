@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -6,6 +7,8 @@ const Login = () => {
     password: '',
     rememberMe: false
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -18,144 +21,102 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Login data:', formData);
-  };
-
-  // Inline styles as fallback
-  const styles = {
-    container: {
-      minHeight: '100vh',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-      padding: '20px',
-      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
-    },
-    card: {
-      background: 'rgba(255, 255, 255, 0.95)',
-      padding: '40px',
-      borderRadius: '16px',
-      boxShadow: '0 10px 40px rgba(0, 0, 0, 0.1)',
-      width: '100%',
-      maxWidth: '420px',
-      backdropFilter: 'blur(10px)',
-      border: '1px solid rgba(255, 255, 255, 0.2)'
-    },
-    title: {
-      fontSize: '28px',
-      fontWeight: '700',
-      marginBottom: '8px',
-      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-      WebkitBackgroundClip: 'text',
-      WebkitTextFillColor: 'transparent',
-      textAlign: 'center'
-    },
-    subtitle: {
-      color: '#666',
-      marginBottom: '32px',
-      textAlign: 'center'
-    },
-    inputGroup: {
-      marginBottom: '24px'
-    },
-    label: {
-      display: 'block',
-      marginBottom: '8px',
-      fontWeight: '600',
-      color: '#333'
-    },
-    input: {
-      width: '100%',
-      padding: '14px 16px',
-      border: '2px solid #e2e8f0',
-      borderRadius: '10px',
-      fontSize: '16px',
-      transition: 'all 0.3s ease',
-      boxSizing: 'border-box'
-    },
-    button: {
-      width: '100%',
-      padding: '14px',
-      background: 'linear-gradient(135deg, #4299e1, #3182ce)',
-      color: 'white',
-      border: 'none',
-      borderRadius: '10px',
-      fontSize: '16px',
-      fontWeight: '600',
-      cursor: 'pointer',
-      transition: 'all 0.3s ease',
-      marginBottom: '24px'
-    },
-    signupSection: {
-      textAlign: 'center',
-      color: '#666'
-    },
-    link: {
-      color: '#4299e1',
-      textDecoration: 'none',
-      fontWeight: '600',
-      marginLeft: '4px'
-    }
+    
+    // Temporary: Redirect to dashboard after "login"
+    // In real app, you'd check credentials first
+    navigate('/dashboard');
   };
 
   return (
-    <div style={styles.container}>
-      <div style={styles.card}>
-        <h1 style={styles.title}>Welcome Back</h1>
-        <p style={styles.subtitle}>Sign in to your GiftCardPro account</p>
-        
-        <form onSubmit={handleSubmit}>
-          <div style={styles.inputGroup}>
-            <label style={styles.label}>Username or Email</label>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-500 to-purple-600 p-4">
+      <div className="bg-white/95 backdrop-blur-lg rounded-2xl shadow-2xl p-8 w-full max-w-md border border-white/20">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+            <span className="text-white font-bold text-xl">GP</span>
+          </div>
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            Welcome Back
+          </h1>
+          <p className="text-gray-600 mt-2">
+            Sign in to your GiftCardPro account
+          </p>
+        </div>
+
+        {/* Login Form */}
+        <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Username/Email Field */}
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              Username or Email
+            </label>
             <input
               type="text"
               name="username"
               value={formData.username}
               onChange={handleChange}
               placeholder="Enter your username or email"
-              style={styles.input}
+              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
               required
             />
           </div>
 
-          <div style={styles.inputGroup}>
-            <label style={styles.label}>Password</label>
+          {/* Password Field */}
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              Password
+            </label>
             <input
               type="password"
               name="password"
               value={formData.password}
               onChange={handleChange}
               placeholder="Enter your password"
-              style={styles.input}
+              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
               required
             />
           </div>
 
-          <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px'}}>
-            <label style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
+          {/* Remember Me & Forgot Password */}
+          <div className="flex items-center justify-between">
+            <label className="flex items-center space-x-2">
               <input
                 type="checkbox"
                 name="rememberMe"
                 checked={formData.rememberMe}
                 onChange={handleChange}
+                className="w-4 h-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
               />
-              Remember me
+              <span className="text-gray-700 text-sm font-medium">Remember me</span>
             </label>
-            <a href="/forgot-password" style={styles.link}>
+            <a 
+              href="/forgot-password" 
+              className="text-blue-600 hover:text-blue-500 text-sm font-medium transition duration-200"
+            >
               Forgot password?
             </a>
           </div>
 
-          <button type="submit" style={styles.button}>
+          {/* Sign In Button */}
+          <button
+            type="submit"
+            className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-4 rounded-xl font-semibold hover:from-blue-700 hover:to-purple-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-200 transform hover:-translate-y-0.5 hover:shadow-lg"
+          >
             Sign In
           </button>
         </form>
 
-        <div style={styles.signupSection}>
-          New to GiftCardPro?{' '}
-          <a href="/register" style={styles.link}>
-            Create your account
-          </a>
+        {/* Sign Up Link */}
+        <div className="text-center mt-6 pt-6 border-t border-gray-200">
+          <p className="text-gray-600">
+            New to GiftCardPro?{' '}
+            <a 
+              href="/register" 
+              className="text-blue-600 hover:text-blue-500 font-semibold transition duration-200"
+            >
+              Create your account
+            </a>
+          </p>
         </div>
       </div>
     </div>
