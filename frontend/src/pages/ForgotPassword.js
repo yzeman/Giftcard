@@ -134,6 +134,13 @@ const ForgotPassword = () => {
               >
                 Back to Login
               </Link>
+               // In the success section, add this button:
+<Link 
+  to="/reset-password" 
+  className="text-orange-600 hover:text-orange-500 font-medium"
+>
+  Proceed to Reset Password
+</Link>   
             </p>
           </div>
         )}
