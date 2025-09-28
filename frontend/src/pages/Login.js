@@ -89,12 +89,9 @@ const Login = () => {
               />
               <span className="text-gray-700 text-sm font-medium">Remember me</span>
             </label>
-            <a 
-              href="/forgot-password" 
-              className="text-blue-600 hover:text-blue-500 text-sm font-medium transition duration-200"
-            >
-              Forgot password?
-            </a>
+            <Link to="/forgot-password" className="text-blue-600 hover:text-blue-500 text-sm font-medium transition duration-200">
+  Forgot password?
+</Link>
           </div>
 
           {/* Sign In Button */}
