@@ -2,15 +2,18 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const { body, validationResult } = require('express-validator');
+const config = require('../config');  // ADD THIS LINE
 
 const router = express.Router();
 
-// Generate JWT Token
+// Generate JWT Token - USE config.JWT_SECRET
 const generateToken = (userId) => {
-  return jwt.sign({ userId }, process.env.JWT_SECRET || 'your-secret-key', {
+  return jwt.sign({ userId }, config.JWT_SECRET, {  // CHANGED THIS LINE
     expiresIn: '30d',
   });
 };
+
+// ... rest of your auth code remains the same
 
 // Register
 router.post('/register', [
