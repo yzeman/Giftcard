@@ -17,6 +17,25 @@ mongoose.connect(config.MONGODB_URI || 'mongodb://localhost:27017/giftcard_marke
   useUnifiedTopology: true,
 });
 
+// Add this route to show backend is working
+app.get('/', (req, res) => {
+  res.json({ 
+    message: 'Gift Card Marketplace API is running!',
+    status: 'OK',
+    timestamp: new Date().toISOString()
+  });
+});
+
+// Add API health check
+app.get('/api/health', (req, res) => {
+  res.json({ 
+    status: 'OK',
+    service: 'Gift Card Marketplace API',
+    database: mongoose.connection.readyState === 1 ? 'Connected' : 'Disconnected',
+    timestamp: new Date().toISOString()
+  });
+});
+
 // Routes
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/transactions', require('./routes/transactions'));
