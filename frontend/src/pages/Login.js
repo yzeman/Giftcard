@@ -21,22 +21,22 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 py-12 px-4 sm:px-6 lg:px-8">
       {/* Background Animation */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -inset-10 opacity-20">
           <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-white rounded-full mix-blend-soft-light filter blur-xl animate-pulse"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-cyan-300 rounded-full mix-blend-soft-light filter blur-xl animate-pulse animation-delay-2000"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-cyan-300 rounded-full mix-blend-soft-light filter blur-xl animate-pulse" style={{animationDelay: '2000ms'}}></div>
         </div>
       </div>
 
       <div className="max-w-md w-full bg-white/95 backdrop-blur-lg rounded-2xl shadow-2xl p-8 relative z-10 border border-white/20">
         {/* Logo/Brand */}
         <div className="text-center mb-8">
-          <div className="mx-auto w-16 h-16 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg mb-4">
+          <div className="mx-auto w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg mb-4">
             <span className="text-white font-bold text-xl">GP</span>
           </div>
-          <h2 className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+          <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
             Welcome Back
           </h2>
           <p className="text-gray-600 mt-2">
@@ -58,7 +58,7 @@ const Login = () => {
                 value={formData.username}
                 onChange={handleChange}
                 placeholder="Enter your username or email"
-                className="w-full px-4 py-3 pl-11 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-200 bg-gray-50/50"
+                className="w-full px-4 py-3 pl-11 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 bg-gray-50/50"
                 required
               />
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -81,7 +81,7 @@ const Login = () => {
                 value={formData.password}
                 onChange={handleChange}
                 placeholder="Enter your password"
-                className="w-full px-4 py-3 pl-11 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-200 bg-gray-50/50"
+                className="w-full px-4 py-3 pl-11 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 bg-gray-50/50"
                 required
               />
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -100,7 +100,7 @@ const Login = () => {
                 name="rememberMe"
                 checked={formData.rememberMe}
                 onChange={handleChange}
-                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
               />
               <label className="ml-2 block text-sm text-gray-700 font-medium">
                 Remember me
@@ -109,7 +109,7 @@ const Login = () => {
 
             <a 
               href="/forgot-password" 
-              className="text-sm font-semibold text-indigo-600 hover:text-indigo-500 transition duration-200"
+              className="text-sm font-semibold text-blue-600 hover:text-blue-500 transition duration-200"
             >
               Forgot password?
             </a>
@@ -118,7 +118,7 @@ const Login = () => {
           {/* Sign In Button */}
           <button
             type="submit"
-            className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 px-4 rounded-xl font-semibold hover:from-indigo-700 hover:to-purple-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-200 transform hover:-translate-y-0.5 hover:shadow-lg shadow-md"
+            className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-4 rounded-xl font-semibold hover:from-blue-700 hover:to-purple-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 transform hover:-translate-y-0.5 hover:shadow-lg shadow-md"
           >
             Sign In
           </button>
@@ -140,7 +140,7 @@ const Login = () => {
         <div className="text-center mt-6">
           <a 
             href="/register" 
-            className="inline-flex items-center font-semibold text-indigo-600 hover:text-indigo-500 transition duration-200 group"
+            className="inline-flex items-center font-semibold text-blue-600 hover:text-blue-500 transition duration-200 group"
           >
             Create your account
             <svg className="ml-1 w-4 h-4 transform group-hover:translate-x-1 transition duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
