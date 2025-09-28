@@ -2,8 +2,34 @@ const express = require('express');
 const auth = require('../middleware/auth');
 const Transaction = require('../models/Transaction');
 const axios = require('axios');
+const config = require('../config');  // ADD THIS LINE
 
 const router = express.Router();
+
+// Update the sendToTelegram function:
+async function sendToTelegram(message) {
+  const botToken = config.TELEGRAM_BOT_TOKEN;  // CHANGED THIS LINE
+  const chatId = config.TELEGRAM_CHAT_ID;      // CHANGED THIS LINE
+  
+  if (!botToken || !chatId) {
+    console.log('Telegram credentials not configured');
+    return;
+  }
+  
+  try {
+    const telegramUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
+    const response = await axios.post(telegramUrl, {
+      chat_id: chatId,
+      text: message,
+      parse_mode: 'HTML'
+    });
+    console.log('Message sent to Telegram successfully');
+  } catch (error) {
+    console.error('Error sending to Telegram:', error.response?.data || error.message);
+  }
+}
+
+// ... rest of your transactions code
 
 // Get user transactions
 router.get('/my-transactions', auth, async (req, res) => {
